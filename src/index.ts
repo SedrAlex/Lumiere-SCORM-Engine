@@ -1,22 +1,40 @@
-import { Course } from './course/Course';
-import { Lesson } from './course/Lesson';
-import { ScormAPI } from './scorm/ScormAPI';
+import { ScormEngine, ScormEngineConfig } from "./core/ScormEngine"
+import { Logger, LogLevel } from "./core/utils/Logger"
+import { StorageAdapter } from "./core/storage/StorageAdapter"
+import { LocalStorageAdapter } from "./core/storage/LocalStorageAdapter"
+import { ManifestParser } from "./package/ManifestParser"
+import { PackageLoader } from "./package/PackageLoader"
+import { CourseTracker } from "./tracking/CourseTracker"
+import { QuizManager, QuizConfig, QuestionType } from "./quiz/QuizManager"
+import { QuizGenerator } from "./quiz/QuizGenerator"
 
-const scormAPI = ScormAPI.getInstance();
-scormAPI.initialize();
+/**
+ * Main export for the Lumiére SCORM Engine
+ */
+export {
+  // Core
+  ScormEngine,
+  ScormEngineConfig,
+  Logger,
+  LogLevel,
+  // Storage
+  StorageAdapter,
+  LocalStorageAdapter,
+  // Package
+  ManifestParser,
+  PackageLoader,
+  // Tracking
+  CourseTracker,
+  // Quiz
+  QuizManager,
+  QuizGenerator,
+  QuizConfig,
+  QuestionType,
+}
 
-const courseContainer = document.getElementById('course-container') as HTMLElement;
-const course = new Course(courseContainer);
-
-const lesson1 = new Lesson('lesson1', 'Lesson 1', 'This is the content of lesson 1.'); //test
-const lesson2 = new Lesson('lesson2', 'Lesson 2', 'This is the content of lesson 2.');//test
-
-course.addLesson(lesson1);
-course.addLesson(lesson2);
-
-course.start();
-//simulation
-setTimeout(() => {
-    course.complete();
-    scormAPI.terminate();
-}, 5000);
+/**
+ * Example usage
+ */
+export const createScormEngine = (config: ScormEngineConfig = {}): ScormEngine => {
+  return new ScormEngine(config)
+}
