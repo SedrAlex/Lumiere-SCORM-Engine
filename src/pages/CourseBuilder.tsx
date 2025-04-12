@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd"
 import { PlusCircle, Trash2, MoveVertical, Save, Eye } from "lucide-react"
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from "sonner"
 
 interface CourseBuilderProps {
   setCourseData: (data: any) => void
@@ -18,7 +18,6 @@ interface CourseBuilderProps {
 
 const CourseBuilder = ({ setCourseData }: CourseBuilderProps) => {
   const navigate = useNavigate()
-  const { toast } = useToast()
 
   const [courseTitle, setCourseTitle] = useState("My SCORM Course")
   const [courseDescription, setCourseDescription] = useState("A course created with Lumiére SCORM Engine")
