@@ -1,13 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/index.ts"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumiére SCORM Test</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="course-container">
+        <header>
+            <h1>SCORM Test Course</h1>
+            <div id="student-info">
+                <span id="student-name">Loading...</span>
+                <span id="connection-status">Connecting to LMS...</span>
+            </div>
+        </header>
+
+        <main>
+            <div id="content-frame-container">
+                <iframe id="content-frame" src="pages/page1.html" allowfullscreen></iframe>
+            </div>
+            
+            <div id="navigation">
+                <button id="prev-btn" disabled>Previous</button>
+                <div id="progress-indicator">Page 1 of 3</div>
+                <button id="next-btn">Next</button>
+            </div>
+        </main>
+
+        <div id="error-message" class="error-message"></div>
+        <div id="debug-panel" class="debug-panel">
+            <h3>Debug Information</h3>
+            <div id="debug-output"></div>
+            <button id="toggle-debug">Toggle Debug Panel</button>
+        </div>
+    </div>
+
+    <!-- Load the SCORM Engine -->
+    <script src="js/lumiere-scorm-engine.js"></script>
+    <script src="js/course.js"></script>
+</body>
 </html>

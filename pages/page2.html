@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCORM Standards</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .complete-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .complete-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>SCORM Standards and Versions</h1>
+        <p>SCORM has evolved over time with different versions offering enhanced capabilities. This page outlines the key differences between SCORM versions.</p>
+        
+        <h2>SCORM Version Comparison</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>SCORM 1.2</th>
+                    <th>SCORM 2004</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Release Year</td>
+                    <td>2001</td>
+                    <td>2004 (with editions through 2009)</td>
+                </tr>
+                <tr>
+                    <td>API Name</td>
+                    <td>API</td>
+                    <td>API_1484_11</td>
+                </tr>
+                <tr>
+                    <td>Sequencing</td>
+                    <td>Basic</td>
+                    <td>Advanced (with conditional rules)</td>
+                </tr>
+                <tr>
+                    <td>Navigation</td>
+                    <td>Limited</td>
+                    <td>Enhanced</td>
+                </tr>
+                <tr>
+                    <td>Status Tracking</td>
+                    <td>lesson_status</td>
+                    <td>completion_status and success_status</td>
+                </tr>
+                <tr>
+                    <td>Time Format</td>
+                    <td>HH:MM:SS</td>
+                    <td>ISO 8601 (e.g., PT1H30M5S)</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>The Lumiére SCORM Engine supports both SCORM 1.2 and SCORM 2004 standards, allowing your content to be compatible with virtually any Learning Management System.</p>
+        
+        <button class="complete-btn" id="mark-complete">Mark Page Complete</button>
+    </div>
+
+    <script>
+        document.getElementById('mark-complete').addEventListener('click', function() {
+            // Notify the parent window that this page is complete
+            window.parent.postMessage({
+                action: 'pageComplete',
+                pageId: 'page2'
+            }, '*');
+            
+            this.textContent = 'Page Completed!';
+            this.disabled = true;
+        });
+    </script>
+</body>
+</html>
