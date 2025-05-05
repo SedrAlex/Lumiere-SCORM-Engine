@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCORM Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .options {
+            margin-top: 10px;
+        }
+        .option {
+            margin-bottom: 8px;
+        }
+        .option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+        }
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        #quiz-results {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>SCORM Knowledge Quiz</h1>
+        <p>Test your knowledge of SCORM standards with this short quiz. Select the best answer for each question.</p>
+        
+        <div id="quiz-container">
+            <div class="question" id="q1">
+                <h3>1. What does SCORM stand for?</h3>
+                <div class="options">
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q1" value="0"> Standardized Content Object Reference Model
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q1" value="1"> Shareable Content Object Reference Model
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q1" value="2"> System Content Organization Reference Method
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q1" value="3"> Structured Course Object Reference Mechanism
+                        </label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-q1"></div>
+            </div>
+            
+            <div class="question" id="q2">
+                <h3>2. Which of the following is NOT a feature of SCORM?</h3>
+                <div class="options">
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q2" value="0"> Content packaging
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q2" value="1"> Run-time communication
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q2" value="2"> Sequencing and navigation
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q2" value="3"> Video streaming capabilities
+                        </label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-q2"></div>
+            </div>
+            
+            <div class="question" id="q3">
+                <h3>3. Which SCORM version introduced advanced sequencing and navigation?</h3>
+                <div class="options">
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q3" value="0"> SCORM 1.0
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q3" value="1"> SCORM 1.2
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q3" value="2"> SCORM 2004
+                        </label>
+                    </div>
+                    <div class="option">
+                        <label>
+                            <input type="radio" name="q3" value="3"> SCORM 3.0
+                        </label>
+                    </div>
+                </div>
+                <div class="feedback" id="feedback-q3"></div>
+            </div>
+            
+            <button class="submit-btn" id="submit-quiz">Submit Quiz</button>
+        </div>
+        
+        <div id="quiz-results">
+            <h2>Quiz Results</h2>
+            <p>Your score: <span id="quiz-score">0</span>%</p>
+            <p>Status: <span id="quiz-status">Incomplete</span></p>
+            <button class="submit-btn" id="complete-course">Complete Course</button>
+        </div>
+    </div>
+
+    <script>
+        // Quiz answers and feedback
+        const quizData = {
+            q1: {
+                correctAnswer: "1",
+                feedback: {
+                    correct: "Correct! SCORM stands for Shareable Content Object Reference Model.",
+                    incorrect: "Incorrect. SCORM stands for Shareable Content Object Reference Model."
+                }
+            },
+            q2: {
+                correctAnswer: "3",
+                feedback: {
+                    correct: "Correct! SCORM does not include video streaming capabilities.",
+                    incorrect: "Incorrect. SCORM includes content packaging, run-time communication, and sequencing, but not video streaming capabilities."
+                }
+            },
+            q3: {
+                correctAnswer: "2",
+                feedback: {
+                    correct: "Correct! SCORM 2004 introduced advanced sequencing and navigation.",
+                    incorrect: "Incorrect. SCORM 2004 introduced advanced sequencing and navigation."
+                }
+            }
+        };
+
+        document.getElementById('submit-quiz').addEventListener('click', function() {
+            let score = 0;
+            let totalQuestions = Object.keys(quizData).length;
+            
+            // Check each question
+            for (let questionId in quizData) {
+                const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`)?.value;
+                const feedbackElement = document.getElementById(`feedback-${questionId}`);
+                
+                if (selectedAnswer === quizData[questionId].correctAnswer) {
+                    score++;
+                    feedbackElement.textContent = quizData[questionId].feedback.correct;
+                    feedbackElement.className = 'feedback correct';
+                } else {
+                    feedbackElement.textContent = quizData[questionId].feedback.incorrect;
+                    feedbackElement.className = 'feedback incorrect';
+                }
+                
+                feedbackElement.style.display = 'block';
+            }
+            
+            // Calculate percentage score
+            const percentScore = Math.round((score / totalQuestions) * 100);
+            
+            // Display results
+            document.getElementById('quiz-score').textContent = percentScore;
+            document.getElementById('quiz-status').textContent = percentScore >= 70 ? 'Passed' : 'Failed';
+            document.getElementById('quiz-results').style.display = 'block';
+            
+            // Disable submit button
+            this.disabled = true;
+            
+            // Send score to parent window
+            window.parent.postMessage({
+                action: 'quizComplete',
+                score: percentScore,
+                passed: percentScore >= 70
+            }, '*');
+        });
+        
+        document.getElementById('complete-course').addEventListener('click', function() {
+            window.parent.postMessage({
+                action: 'courseComplete'
+            }, '*');
+            
+            this.textContent = 'Course Completed!';
+            this.disabled = true;
+        });
+    </script>
+</body>
+</html>

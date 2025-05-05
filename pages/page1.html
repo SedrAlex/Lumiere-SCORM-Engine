@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .complete-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .complete-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Introduction to SCORM</h1>
+        <p>Welcome to this test course for the Lumiére SCORM Engine. This page demonstrates how to track user progress through a SCORM-compliant course.</p>
+        
+        <h2>What is SCORM?</h2>
+        <p>SCORM (Shareable Content Object Reference Model) is a set of technical standards for e-learning software products. It defines how online learning content and Learning Management Systems (LMSs) communicate with each other.</p>
+        
+        <p>Key features of SCORM include:</p>
+        <ul>
+            <li>Content packaging standards</li>
+            <li>Launch and communication protocols</li>
+            <li>Data model for tracking learner progress</li>
+            <li>Sequencing rules for content navigation</li>
+        </ul>
+        
+        <button class="complete-btn" id="mark-complete">Mark Page Complete</button>
+    </div>
+
+    <script>
+        document.getElementById('mark-complete').addEventListener('click', function() {
+            // Notify the parent window that this page is complete
+            window.parent.postMessage({
+                action: 'pageComplete',
+                pageId: 'page1'
+            }, '*');
+            
+            this.textContent = 'Page Completed!';
+            this.disabled = true;
+        });
+    </script>
+</body>
+</html>
